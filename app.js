@@ -6,7 +6,7 @@
   "use strict";
 
   var I18N = window.KIZUNA_I18N;
-  var DATA_URL = "data/servicios.json";
+  var DATA_URL = "servicios.json";
   var CLAVE_PREFS = "kizuna:prefs:v1";
   var CENTRO_BCN = [41.3874, 2.1686];
   var RADIO_OPCIONES = [1, 2, 3, 4, 5];

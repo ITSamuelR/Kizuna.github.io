@@ -1,23 +1,23 @@
 /* KIZUNA - Service Worker
  * - App shell (HTML, CSS, JS, iconos): cache-first, para abrir sin conexión.
- * - Datos data/servicios.json: network-first, para recibir cambios aprobados en GitHub Actions.
+ * - Datos servicios.json: network-first, para recibir cambios aprobados en GitHub Actions.
  * - Mapas (tiles OSM) y geocodificación (Nominatim): no se cachean, van siempre a red.
  * Subir CACHE_VERSION al publicar cambios grandes para forzar la actualización.
  */
-const CACHE_VERSION = "kizuna-v1.0.0";
+const CACHE_VERSION = "kizuna-v1.0.1";
 const SHELL = [
   "./",
   "./index.html",
   "./manifest.json",
-  "./css/brand.css",
-  "./css/app.css",
-  "./js/i18n.js",
-  "./js/app.js",
-  "./icons/icon.svg",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/icon-maskable-512.png",
-  "./data/servicios.json"
+  "./brand.css",
+  "./app.css",
+  "./i18n.js",
+  "./app.js",
+  "./icon.svg",
+  "./icon-192.png",
+  "./icon-512.png",
+  "./icon-maskable-512.png",
+  "./servicios.json"
 ];
 
 self.addEventListener("install", (event) => {
@@ -44,7 +44,7 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
 
   // Datos: network-first con respaldo en caché.
-  if (url.pathname.endsWith("/data/servicios.json")) {
+  if (url.pathname.endsWith("/servicios.json")) {
     event.respondWith(
       fetch(req)
         .then((res) => {
