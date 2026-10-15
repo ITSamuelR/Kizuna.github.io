@@ -1,60 +1,81 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KIZUNA - DXC Changers Social: recursos sociales en Barcelona en un mapa.">
+  <meta name="theme-color" content="#003366">
+  <title>KIZUNA - DXC Changers Social</title>
 
-    <title>Proyecto Kizuna</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
 
-    <meta name="theme-color" content="#1e40af">
-
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-e>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f3f4f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .card {
-            text-align: center;
-            padding: 40px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.15);
-        }
-
-        h1 {
-            color: #1e40af;
-        }
-    </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="css/brand.css">
+  <link rel="stylesheet" href="css/app.css">
 </head>
-
 <body>
+  <a class="skip-link" href="#contenido" data-i18n="saltar">Ir al contenido</a>
 
-<div class="card">
-    <h1>Proyecto Kizuna</h1>
-    <p>Hello World 🚀</p>
-    <p>Vamos equipo!! DXC Changers - Social</p>
+  <header class="app-header">
+    <div class="app-title">
+      <strong data-i18n="app">KIZUNA</strong>
+      <span data-i18n="subtitulo">DXC Changers Social</span>
+    </div>
+    <label class="sr-only" for="idioma" data-i18n="idioma">Idioma</label>
+    <select id="idioma" aria-label="Idioma"></select>
+  </header>
 
-    <a href="https://www.flaticon.es/iconos-gratis/ui"
-           title="ui iconos"
-           target="_blank"
-           rel="noopener noreferrer">
-           Ui iconos creados por Hight Quality Icons - Flaticon
-        </a>
-</div>
+  <section class="toolbar" aria-label="Ubicación y filtros">
+    <div class="toolbar__fila">
+      <button type="button" id="btn-ubicacion" class="btn" data-i18n="ubicacion">Usar mi ubicación</button>
+    </div>
 
-<script>
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js');
-}
-</script>
+    <form id="form-direccion" class="toolbar__fila" role="search">
+      <label for="direccion" data-i18n="direccion">Dirección</label>
+      <input id="direccion" class="campo" type="search" autocomplete="street-address"
+             data-i18n-placeholder="direccionPlaceholder" placeholder="Escribe una dirección de Barcelona">
+      <button type="submit" class="btn btn--secundario" data-i18n="buscar">Buscar</button>
+    </form>
 
+    <div class="toolbar__fila">
+      <label for="radio" data-i18n="radio">Radio</label>
+      <select id="radio" class="campo" style="flex:0 0 auto;width:auto;min-width:110px"></select>
+      <label for="buscar-texto" class="sr-only" data-i18n="buscarServicio">Buscar por nombre</label>
+      <input id="buscar-texto" class="campo" type="search" placeholder="Buscar por nombre">
+    </div>
+
+    <div class="toolbar__fila">
+      <div id="filtros" class="filtros" role="group" aria-label="Categorías"></div>
+      <button type="button" id="solo-favoritos" class="btn btn--pill btn--secundario" aria-pressed="false"></button>
+    </div>
+
+    <p id="estado" class="estado" role="status" aria-live="polite"></p>
+  </section>
+
+  <main id="contenido" class="contenido">
+    <div id="mapa" role="region" aria-label="Mapa de recursos"></div>
+
+    <div class="lista-wrap">
+      <h2 id="cercanos-titulo" class="sr-only">Recursos cercanos</h2>
+      <ul id="lista" class="lista" aria-labelledby="cercanos-titulo"></ul>
+      <p id="vacio" class="vacio" hidden></p>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>
+      <strong data-i18n="emergencias">Emergencias</strong>
+    </p>
+    <ul id="emergencias"></ul>
+    <p class="texto-secundario" data-i18n="privacidad">
+      Tu ubicación se usa solo en este dispositivo. La dirección escrita se envía al servicio de mapas (OpenStreetMap) para localizarla.
+    </p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
